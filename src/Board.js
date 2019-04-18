@@ -196,20 +196,10 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function (index) {
-      /**
-       * index - row().length is number of iterations of rows across the top;
-       * if(index) is positive, (0,index)is start
-       * if(index) is negative (Math.abs(index),0) is start
-       * if(index) is positive, rows().length-index = number of iterations
-       * if(index )is negative, rows(length)+index is number of iterations
-       */
-      console.log('this is the index', index)
-      var startingsquare = index <= this.rows().length ? [0, this.rows().length - 1] : [index, this.rows().length - 1];
+      var startingsquare = index > 0 ? [0, this.rows().length - 1 - (3 - index)] : [-index, this.rows().length - 1];
       var queencount = 0;
-      var iterations = index >= this.rows().length ? this.rows().length - index : this.rows().length + index;
-      console.log(iterations);
+      var iterations = index >= 0 ? this.rows().length - (3 - index) : this.rows().length + index;
       for (var x = 0; x < iterations; x++) {
-        console.log('each iteration');
         if (this.rows()[startingsquare[0] + x][startingsquare[1] - x] === 1) {
           queencount++;
         }
@@ -220,12 +210,14 @@
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function () {
 
-      for (let x = this.rows().length; x > 0; x--) {
+      for (let x = this.rows().length - 1; x > 0; x--) {
+
         if (this.hasMinorDiagonalConflictAt(x)) {
           return true;
         }
       }
       for (let x = -1; x > -(this.rows().length - 1); x--) {
+
         if (this.hasMinorDiagonalConflictAt(x)) {
           return true;
         }
