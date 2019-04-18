@@ -21,7 +21,6 @@
     rows: function () {
       return _(_.range(this.get('n'))).map(function (rowIndex) {
         return this.get(rowIndex);
-        console.log("test");
       }, this);
     },
 
@@ -80,12 +79,33 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function (rowIndex) {
-      return false; // fixme
+      var indexArr = this.get(rowIndex);
+      var count = 0;
+      for (var i = 0; i < indexArr.length; i++) {
+
+        count += indexArr[i];
+
+
+      }
+      /*       console.log("a", count);
+       */
+      if (count > 1) {
+        return true;
+      }
+      return false;
     },
+    /*     console.log("arr", indexArr);
+            var regex = /(1)\d*\1/;
+            console.log(indexArr.join('').match(regex));
+            if (regex.test(indexArr.join(''))) {
+              return true;
+            }
+            return false; */
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function () {
-      return false; // fixme
+      console.log(this.rows()[0]);
+      return this.rows().reduce((acc, cur, ind) => (true ? true : hasRowConflictAt(ind)), false);
     },
 
 
