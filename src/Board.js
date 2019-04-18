@@ -204,6 +204,7 @@
           queencount++;
         }
       }
+      console.log("qc", queencount);
       return queencount > 1 ? true : false;
     },
 
